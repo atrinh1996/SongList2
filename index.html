@@ -1,0 +1,158 @@
+<!-- HW9 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <title>SongList - HW9</title>
+
+
+    <script language="javascript" src="SongList.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            serialize();    // Part 2
+            friendlyDisplay();      // Part 3
+        });
+    </script>
+
+    <!-- Part 2: Serialize ad Display data from SongList.json as raw string -->
+    <script>
+        // display data from SongList.json as raw string
+        // (default stringify)
+        function serialize() {
+            let raw = JSON.stringify(SongList);
+            $("#part2").html(raw);
+        }
+    </script>
+
+    <!-- Part 3: Display in user friendly format -->
+    <script>
+        // display each block of song between p tags
+        function friendlyDisplay() {
+            let s = "";
+            SongList.forEach(function(currObj, index, songArr) {
+                s += displaySong(currObj);
+            });
+            // console.log(s);
+            $(".block:eq(1)").append(s);    // Display under correct div!
+        }
+
+        // displays ONE json song object in friendly format, format per spec
+        function displaySong(songObj) {
+            let s = "";
+            s += "<p>";
+                
+            s += "<span>"
+            s += songObj["title"];
+            s += "</span><br>";
+
+            s += "Artist: " + songObj["artist"];
+            s += "<br>";
+
+            s += "Genre: ";
+            songObj["genre"].forEach(function(genre, idx) {
+                if (idx > 0) s += ", ";
+                s += genre;
+            });
+            s += "<br>";
+            
+            s += "Released " + songObj["year"];
+
+            s += "</p> <br>";
+
+            return s;
+        }
+    </script>
+
+    <!-- Part 4: Create a form that let's user filter songs by genre -->
+    <script>
+        // puts all possible genres in list. No repeated elements
+        function getGenre(list) {
+            SongList.forEach(function(currObj) {
+                currObj["genre"].forEach(function(currGenre) {
+                    if (!list.includes(currGenre))
+                        list.push(currGenre);
+                });
+            });
+            list.sort();
+        }
+
+        // creates the html for select tag for genres
+        function makeGenreSelect() {
+            let genre = [];
+            getGenre(genre);
+
+            let g = "";
+            g += "<select name='genreSelect'>"
+            g += "<option selected='selected'>Pick a genre</option>";
+            genre.forEach(function(currGenre) {
+                g += "<option>" + currGenre + "</option>";
+            });
+            g += "</select>";
+
+            return g;
+        }
+    </script>
+
+
+</head>
+<body>
+    <div class="container">
+    <h1>Display SongList (HW9)</h1>
+
+    <div class="block">
+        <h2>Raw String:</h2>
+        <p id="part2"></p>
+    </div>
+
+
+    <div class="block">
+        <h2>User Friendly Display (All Songs):</h2>
+        <!-- p tags with formated song list displays here -->
+    </div>
+
+
+    <div class="block">
+        <h2>Filter Songs By Genre:</h2>
+
+        <form action="">
+            <!-- Create the Genre Select tag here -->
+            <script>
+                document.writeln(makeGenreSelect());
+            </script>
+
+            <!-- Filter Button here -->
+            <input type="button" name="filterBtn" value="Filter">
+
+            <!-- Display filtered songs here -->
+            <div id="filteredSongs"></div>
+
+            <script>
+                // Display songs filtered by genre when user clicks filter btn.
+                // Note: Assume at least one song per genre
+                $("input[name='filterBtn']").on("click", function() {
+                    let pickedGenre = $("select[name='genreSelect'] option:selected").val();
+
+                    // clear current display before showing new display
+                    $("#filteredSongs").html("");
+                    SongList.forEach(function(currObj) {
+                        if (currObj["genre"].includes(pickedGenre))
+                            $("#filteredSongs").append(displaySong(currObj));
+                    });
+                });
+            </script>
+        </form>
+    </div>
+    </div>
+
+    <!-- Just included for easy scrolling and visualizing -->
+    <div style="margin-top: 500px;"></div>
+
+</body>
+</html>
