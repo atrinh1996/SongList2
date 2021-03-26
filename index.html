@@ -1,0 +1,60 @@
+<!-- HW9 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script language="javascript" src="main.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <title>SongList - HW9</title>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Display SongList (HW9)</h1>
+
+        <div id="displayHelp"> <!-- display Selection Bar -->
+            <p>Please pick a display option for SongList.json</p>
+            <ul id="displayChoice">
+                <li><input type="button" name="raw" value="Show Raw"></li>
+                <li><input type="button" name="all" value="Show All Songs"></li>
+                <li><input type="button" name="filt" value="Show Filtered Songs"></li>
+                <li><input type="button" name="everything" value="Show All Sections"></li>
+            </ul>
+        </div>
+
+        <div class="block"> <!-- Part 2: Serialize and Display-->
+            <h2>Raw String:</h2>
+            <p id="part2"></p>
+        </div> <!-- End of Part 2 -->
+
+        <div class="block"> <!-- Part 3: Friendly Display -->
+            <h2>User Friendly Display (All Songs):</h2>
+            <!-- p tags with formated song list displays here -->
+        </div> <!-- End of Part 3 -->
+
+        <div class="block"> <!-- Part 4: Filter by Genre -->
+            <h2>Filter Songs By Genre:</h2>
+            <form id="filterForm" action="">
+                <!-- Create the Genre Select tag here -->
+
+                <!-- Filter Button here -->
+                <input type="button" name="filterBtn" value="Filter">
+
+                <!-- Display filtered songs here -->
+                <div id="filteredSongs"></div>
+            </form>
+        </div> <!-- End of Part 4 -->
+
+    </div> <!-- End of container -->
+
+    <!-- Just included for easy scrolling and visualizing -->
+    <div style="margin-top: 500px;"></div>
+
+</body>
+</html>
