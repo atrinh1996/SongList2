@@ -17,6 +17,10 @@
     padding-bottom: 20px;
 }
 
+span{
+    font-weight: bold;
+}
+
 #displayHelp p{
     margin-bottom: 20px;
 }
